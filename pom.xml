@@ -17,6 +17,11 @@
       <artifactId>tess4j</artifactId>
       <version>5.15.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.29.0</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -35,6 +40,14 @@
               <filtering>false</filtering>
             </resource>
           </resources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
         </configuration>
       </plugin>
     </plugins>
