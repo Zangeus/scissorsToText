@@ -22,31 +22,27 @@ public class OCRScissors {
     private Rectangle selectionRect;
 
     public OCRScissors() {
-        tesseract = new Tesseract(); // Инициализируем сначала объект
-        configureTesseract(); // Затем настраиваем
+        tesseract = new Tesseract();
+        configureTesseract();
         createOverlay();
     }
 
     private void configureTesseract() {
         try {
-            // Проверка существования ресурсов
             URL libUrl = getClass().getResource("/win32-x86-64");
             if (libUrl == null) {
-                throw new RuntimeException("Native libraries not found in resources");
+                throw new RuntimeException("Native libraries not found");
             }
 
             URL tessDataUrl = getClass().getResource("/tessdata");
             if (tessDataUrl == null) {
-                throw new RuntimeException("Tessdata not found in resources");
+                throw new RuntimeException("Tessdata not found");
             }
 
-            // Настройка путей
-            System.setProperty("jna.library.path",
-                    Paths.get(libUrl.toURI()).toString());
-
+            System.setProperty("jna.library.path", Paths.get(libUrl.toURI()).toString());
             tesseract.setDatapath(Paths.get(tessDataUrl.toURI()).toString());
             tesseract.setLanguage("rus+eng");
-
+            tesseract.setVariable("user_defined_dpi", "300");
         } catch (Exception e) {
             throw new RuntimeException("Tesseract init error", e);
         }
@@ -155,7 +151,7 @@ public class OCRScissors {
         BufferedImage scaled = new BufferedImage(
                 original.getWidth() * 2,
                 original.getHeight() * 2,
-                BufferedImage.TYPE_INT_RGB);
+                BufferedImage.TYPE_BYTE_GRAY); // Градации серого для ускорения
 
         Graphics2D g = scaled.createGraphics();
         try {
