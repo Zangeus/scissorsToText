@@ -7,22 +7,12 @@
   <name>Archetype - Scissors</name>
   <url>http://maven.apache.org</url>
 
-  <dependencies>
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.5.17</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>net.sourceforge.tess4j</groupId>
-      <artifactId>tess4j</artifactId>
-      <version>5.15.0</version>
-    </dependency>
-
-  </dependencies>
 
   <build>
     <plugins>
@@ -37,6 +27,8 @@
               <includes>
                 <include>**/*.dll</include>
                 <include>**/*.traineddata</include>
+                <include>**/*.so</include> <!-- Для Linux -->
+                <include>**/*.dylib</include> <!-- Для Mac -->
               </includes>
               <filtering>false</filtering>
             </resource>
